@@ -2,7 +2,7 @@ import "dotenv/config";
 import "log-timestamp";
 import cron from "node-cron";
 
-import db from "./db.js";
+import db from "./db/db.js";
 import { sendMessage } from "./telegram.js";
 
 import { getJson } from "./getJson.js";
