@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  node:
+    build: .
+    env_file:
+      - ./.env
+    volumes:
+      - ./db.json:/usr/src/app/db.json:delegated
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 512M
+
