@@ -12,7 +12,7 @@ db.data.urls.map((url) => {
   cron.schedule('*/5 * * * *', () => {
     const random = Math.floor(Math.random() * 2 * 60 * 1000); // random delay between 0 and 2 minutes
     setTimeout(() => {
-      runner(s);
+      runner(url);
     }, random);
   });
 });
