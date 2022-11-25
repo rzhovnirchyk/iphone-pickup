@@ -13,7 +13,7 @@ async function getJson(url) {
       }).json();
       resolve(response);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       reject(error);
     }
   });

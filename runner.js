@@ -20,20 +20,24 @@ db.data.urls.map((url) => {
 async function runner(url) {
   console.log(`Running ${url}`);
 
-  const result = await getJson(url);
+  try {
+    const result = await getJson(url);
 
-  const available = result.body.content.pickupMessage.stores.filter(store => {
-    return store.partsAvailability[Object.keys(store.partsAvailability)[0]].pickupDisplay !== 'unavailable';
-  });
+    const available = result.body.content.pickupMessage.stores.filter(store => {
+      return store.partsAvailability[Object.keys(store.partsAvailability)[0]].pickupDisplay !== 'unavailable';
+    });
 
-  available.map(store => {
-    const details = store.partsAvailability[Object.keys(store.partsAvailability)[0]];
-    const phone = details.messageTypes.regular.storePickupProductTitle;
-    const status = details.messageTypes.regular.storePickupQuote;
-    const message = `${phone}: ${status}`;
-    sendMessage(message);
-    console.log(message);
-  })
+    available.map(store => {
+      const details = store.partsAvailability[Object.keys(store.partsAvailability)[0]];
+      const phone = details.messageTypes.regular.storePickupProductTitle;
+      const status = details.messageTypes.regular.storePickupQuote;
+      const message = `${phone}: ${status}`;
+      sendMessage(message);
+      console.log(message);
+    });
+    console.log(`Finished ${url}`);
+  } catch (error) {
+    console.error(`Error ${error.code}`);
+  }
 
-  console.log(`Finished ${url}`);
 }
